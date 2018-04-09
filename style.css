@@ -1,0 +1,20 @@
+#mycanvas{
+	background-color: teal;
+	width: 632px;
+	height: 632px;
+	display: block;
+	margin: 30px auto;
+	border: 1px solid #000;
+	border-radius: 10px;
+
+}
+
+body{
+	background-color: gray;
+}
+#score{
+	font-size: 2.8rem;
+	font-weight: bold;
+	color: #DAE8E1;
+	padding-left: 760px
+}
