@@ -1,4 +1,4 @@
-//taking CANVAS
+//taking CANVAS from index.html
 let canvas = document.getElementById('mycanvas');
 let ctx = canvas.getContext('2d');
 
@@ -8,7 +8,7 @@ let score = 0;
 let direction = '';
 let snake = [{
 	x: 10,
-	y: 10
+	y: 10 
 }];
 
 //checking all canvas and fill the snake boxes with red color
@@ -61,22 +61,26 @@ document.onkeydown = function(event){
 	if(event.keyCode == 40 && direction != 'UP'){direction = 'DOWN'};
 }
 
-//moving snake
+
 function snakeStep(){
+	//taking head of the snake
 	let obj = {};
 	obj.x = snake[0].x;
 	obj.y = snake[0].y;
 	let x = 0;
 	let y = 0;
 
+	//moving and changing coordinates
 	if(direction == 'LEFT'){x -= 1};
 	if(direction == 'UP'){y -= 1};
 	if(direction == 'RIGHT'){x += 1};
 	if(direction == 'DOWN'){y += 1};
 
+	//moving throw the walls 
 	obj.x = wallCollision(obj.x + x);
 	obj.y = wallCollision(obj.y + y);
-
+	
+	//uisng POP and UNSHIFT to move the snake
 	if(direction){
 		snake.pop();
 		snake.unshift(obj);
@@ -84,12 +88,14 @@ function snakeStep(){
 }
 
 function wallCollision(value){
+	//if the score is more thatn 20 we are showing snake on the other side
 	if(value < 0){value = 20};
 	if(value > 20){value = 0};
 		return value;
 }
 
 function fruitCrash(){
+	//taking head of the snake
 	let x = snake[0].x;
 	let y = snake [0].y;
 
@@ -98,6 +104,7 @@ function fruitCrash(){
 	if(direction == 'RIGHT'){x += 1};
 	if(direction == 'DOWN'){y += 1};
 	
+	//when taking fruit adding new part to the snake and increese score +10
 	if(fruit.x == x && fruit.y == y){
 		let obj = {};
 		obj.x = x;
@@ -107,13 +114,17 @@ function fruitCrash(){
 		score+=10;
 		return;
 	}
+	//and moving next
 	snakeStep();
 }
 
 function snakeCrash(){
+	//if snake is not more 4 it can't bite itself
 	if(snake.length > 4){
 		let x = snake[0].x;
 		let y = snake[0].y;
+		
+		//if we crashed with the part of the snake we will start new game
 		for(let i = 4; i < snake.length; i++){
 			if(x == snake[i].x && y == snake[i].y){
 				direction = '';
@@ -126,6 +137,7 @@ function snakeCrash(){
 	}
 }
 
+// this function is starting all game
 function game(){
 	ctx.clearRect(0, 0, 632, 632);
 	fruitCrash();
